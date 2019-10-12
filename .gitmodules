@@ -1,0 +1,6 @@
+[submodule "external/tracktion_engine"]
+	path = external/tracktion_engine
+	url = https://github.com/Tracktion/tracktion_engine.git
+[submodule "external/vst3sdk"]
+	path = external/vst3sdk
+	url = https://github.com/steinbergmedia/vst3sdk.git
