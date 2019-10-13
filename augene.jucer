@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT name="augene" companyName="atsushieno" version="0.1.0" userNotes="Augene: MML compiler for audio plugins"
+              companyWebsite="http://https://github.com/atsushieno/augene"
+              defines="" projectType="guiapp" id="CeYB7s" jucerVersion="5.4.4">
+  <MAINGROUP id="W5qN35" name="augene">
+    <GROUP id="{2259E49A-521B-972B-FA74-8765EF76EEA2}" name="Source">
+      <FILE name="ApplicationCommands.h" compile="0" resource="0" file="Source/ApplicationCommands.h"
+            id="iaM7N0"/>
+      <FILE name="AugeneMainComponent.h" compile="0" resource="0" file="Source/AugeneMainComponent.h"
+            id="WUWE1u"/>
+      <FILE name="AugeneModel.h" compile="0" resource="0" file="Source/AugeneModel.h"
+            id="rEXA9H"/>
+      <FILE name="AugeneProject.h" compile="0" resource="0" file="Source/AugeneProject.h"
+            id="yob1yt"/>
+      <FILE name="MainMenuModel.h" compile="0" resource="0" file="Source/MainMenuModel.h"
+            id="CPLT3x"/>
+      <FILE name="ApplicationCommands.cpp" compile="1" resource="0" file="Source/ApplicationCommands.cpp"
+            id="HD6TNM"/>
+      <FILE name="AugeneModel.cpp" compile="1" resource="0" file="Source/AugeneModel.cpp"
+            id="KXxzRZ"/>
+      <FILE name="AugeneProject.cpp" compile="1" resource="0" file="Source/AugeneProject.cpp"
+            id="Jz9hXu"/>
+      <FILE name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"
+            id="OPbtcY"/>
+      <FILE name="ApplicationDialogManager.cpp" compile="1" resource="0"
+            file="Source/ApplicationDialogManager.cpp" id="PLuwxY"/>
+      <FILE name="ApplicationDialogManager.h" compile="0" resource="0" file="Source/ApplicationDialogManager.h"
+            id="MN2R29"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <XCODE_IPHONE targetFolder="Builds/iOS">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
+    <ANDROIDSTUDIO targetFolder="Builds/Android">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </ANDROIDSTUDIO>
+    <CLION targetFolder="Builds/CLion">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="augene"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="augene"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_events" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="external/tracktion_engine/modules/juce/modules"/>
+      </MODULEPATHS>
+    </CLION>
+  </EXPORTFORMATS>
+  <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
