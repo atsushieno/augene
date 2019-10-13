@@ -5,28 +5,28 @@
               defines="" projectType="guiapp" id="CeYB7s" jucerVersion="5.4.4">
   <MAINGROUP id="W5qN35" name="augene">
     <GROUP id="{2259E49A-521B-972B-FA74-8765EF76EEA2}" name="Source">
-      <FILE name="ApplicationCommands.h" compile="0" resource="0" file="Source/ApplicationCommands.h"
-            id="iaM7N0"/>
-      <FILE name="AugeneMainComponent.h" compile="0" resource="0" file="Source/AugeneMainComponent.h"
-            id="WUWE1u"/>
-      <FILE name="AugeneModel.h" compile="0" resource="0" file="Source/AugeneModel.h"
-            id="rEXA9H"/>
-      <FILE name="AugeneProject.h" compile="0" resource="0" file="Source/AugeneProject.h"
-            id="yob1yt"/>
-      <FILE name="MainMenuModel.h" compile="0" resource="0" file="Source/MainMenuModel.h"
-            id="CPLT3x"/>
-      <FILE name="ApplicationCommands.cpp" compile="1" resource="0" file="Source/ApplicationCommands.cpp"
-            id="HD6TNM"/>
-      <FILE name="AugeneModel.cpp" compile="1" resource="0" file="Source/AugeneModel.cpp"
-            id="KXxzRZ"/>
-      <FILE name="AugeneProject.cpp" compile="1" resource="0" file="Source/AugeneProject.cpp"
-            id="Jz9hXu"/>
-      <FILE name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"
-            id="OPbtcY"/>
+      <FILE name="ApplicationDialogManager.h" compile="0" resource="0" file="Source/Views/ApplicationDialogManager.h"
+            id="VJIn1A"/>
+      <FILE name="AugeneMainComponent.h" compile="0" resource="0" file="Source/Views/AugeneMainComponent.h"
+            id="J2rGqf"/>
+      <FILE name="AugeneModel.h" compile="0" resource="0" file="Source/Model/AugeneModel.h"
+            id="wyumyu"/>
+      <FILE name="ApplicationCommands.h" compile="0" resource="0" file="Source/Model/ApplicationCommands.h"
+            id="ApuHEU"/>
+      <FILE name="MainMenuModel.h" compile="0" resource="0" file="Source/Model/MainMenuModel.h"
+            id="QUKW5Q"/>
+      <FILE name="AugeneProject.h" compile="0" resource="0" file="Source/Model/AugeneProject.h"
+            id="SdHAqh"/>
       <FILE name="ApplicationDialogManager.cpp" compile="1" resource="0"
-            file="Source/ApplicationDialogManager.cpp" id="PLuwxY"/>
-      <FILE name="ApplicationDialogManager.h" compile="0" resource="0" file="Source/ApplicationDialogManager.h"
-            id="MN2R29"/>
+            file="Source/Views/ApplicationDialogManager.cpp" id="mB36t8"/>
+      <FILE name="AugeneModel.cpp" compile="1" resource="0" file="Source/Model/AugeneModel.cpp"
+            id="mtf6ts"/>
+      <FILE name="AugeneProject.cpp" compile="1" resource="0" file="Source/Model/AugeneProject.cpp"
+            id="GXUzTT"/>
+      <FILE name="ApplicationCommands.cpp" compile="1" resource="0" file="Source/Model/ApplicationCommands.cpp"
+            id="vHtBvH"/>
+      <FILE name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"
+            id="EJegOd"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

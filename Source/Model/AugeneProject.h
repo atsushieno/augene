@@ -5,6 +5,17 @@
 class AugeneProject
 {
 public:
+    class Track
+    {
+    public:
+        int32_t id;
+        String audioGraph;
+    };
+
+    Array<Track> tracks;
+    Array<String> mmlFiles;
+    Array<String> mmlStrings;
+
     AugeneProject()
     {
         edit.reset(new Edit());

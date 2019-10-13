@@ -6,8 +6,8 @@
   ==============================================================================
 */
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "AugeneMainComponent.h"
+#include "JuceHeader.h"
+#include "Views/AugeneMainComponent.h"
 
 class Application    : public JUCEApplication
 {

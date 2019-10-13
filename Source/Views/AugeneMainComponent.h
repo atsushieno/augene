@@ -23,16 +23,16 @@
  END_JUCE_PIP_METADATA
 
  Files to add afterwards:
-   for f in Source/*.h ; do echo "      <FILE name='$(basename $f)' compile='0' resource='0' file='$f' />" ; done
-   for f in Source/*.cpp ; do echo "      <FILE name='$(basename $f)' compile='1' resource='0' file='$f' />" ; done
 
 *******************************************************************************/
+//   for f in `find Source -name *.h` ; do echo "      <FILE name='$(basename $f)' compile='0' resource='0' file='$f' />" ; done
+//   for f in `find Source -name *.cpp` ; do echo "      <FILE name='$(basename $f)' compile='1' resource='0' file='$f' />" ; done
 
 #pragma once
 
 #include "JuceHeader.h"
-#include "MainMenuModel.h"
-#include "AugeneModel.h"
+#include "../Model/MainMenuModel.h"
+#include "../Model/AugeneModel.h"
 #include "ApplicationDialogManager.h"
 
 class AugeneMainComponent : public Component
@@ -52,22 +52,22 @@ public:
 		menubar->setBounds(0, 0, getWidth(), 20);
 		addAndMakeVisible(menubar.get());
 
-		button.reset(new TextButton("test"));
-		button->setBounds(20, 20, 100, 20);
-		addAndMakeVisible(button.get());
+		trackList.reset(new TableListBox("track list", model->getTrackTableModel()));
+        trackList->setBounds(0, 0, getWidth(), getHeight() - 20);
+		addAndMakeVisible(trackList.get());
 		setVisible(true);
+		FlexBox fb;
+
 	}
 
 	~AugeneMainComponent() override
 	{
-	    menubar.reset(nullptr);
-	    button.reset(nullptr);
 	}
 	
 private:
     std::unique_ptr<AugeneModel> model;
 	std::unique_ptr<MenuBarComponent> menubar;
-	std::unique_ptr<TextButton> button;
+	std::unique_ptr<TableListBox> trackList;
 	std::unique_ptr<ApplicationDialogManager> dialogManager;
 
     //==============================================================================

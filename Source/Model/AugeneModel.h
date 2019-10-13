@@ -4,6 +4,7 @@
 #include "AugeneProject.h"
 #include "MainMenuModel.h"
 #include "ApplicationCommands.h"
+#include "TrackTableListBoxModel.h"
 
 class AugeneModel
 {
@@ -13,6 +14,7 @@ public:
         project.reset(new AugeneProject());
         applicationCommands.reset(new ApplicationCommands(this));
         mainMenu.reset(new MainMenuModel(applicationCommands.get()));
+        trackTableModel.reset(new TrackTableListBoxModel());
     }
 
     class ApplicationEventListener
@@ -28,6 +30,7 @@ public:
     };
 
     MainMenuModel* getMainMenuModel() { return mainMenu.get(); }
+    TrackTableListBoxModel* getTrackTableModel() { return trackTableModel.get(); }
 
     ApplicationCommands* getApplicationCommands() { return applicationCommands.get(); }
 
@@ -47,10 +50,13 @@ public:
 
 private:
     std::unique_ptr<AugeneProject> project;
-    std::unique_ptr<MainMenuModel> mainMenu;
     std::unique_ptr<ApplicationCommands> applicationCommands;
 
     Array<ApplicationEventListener*> listeners;
+
+    // ViewModel kind of
+    std::unique_ptr<MainMenuModel> mainMenu;
+    std::unique_ptr<TrackTableListBoxModel> trackTableModel;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AugeneModel)

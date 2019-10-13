@@ -3,8 +3,8 @@
 // UI code that implements MainMenuModel::DialogRequestListener
 
 #include "JuceHeader.h"
-#include "MainMenuModel.h"
-#include "AugeneModel.h"
+#include "../Model/MainMenuModel.h"
+#include "../Model/AugeneModel.h"
 
 class ApplicationDialogManager : public ApplicationCommands::DialogRequestListener
 {
