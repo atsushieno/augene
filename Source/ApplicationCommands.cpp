@@ -34,6 +34,8 @@ void ApplicationCommands::startConfirmationInteraction(Command* command, String 
 
 void ApplicationCommands::endFileOpenInteraction(Array<File> filenames)
 {
+    if(filenames.size() == 0)
+        Logger::writeToLog("canceled opening files.");
     Command* command = ongoingInteractions.removeAndReturn(ongoingInteractions.size() - 1);
     auto fc = dynamic_cast<FileCommand*>(command);
     jassert(fc);
@@ -42,6 +44,8 @@ void ApplicationCommands::endFileOpenInteraction(Array<File> filenames)
 
 void ApplicationCommands::endFileSaveInteraction(Array<File> filenames)
 {
+    if(filenames.size() == 0)
+        Logger::writeToLog("canceled saving files.");
     Command* command = ongoingInteractions.removeAndReturn(ongoingInteractions.size() - 1);
     auto fc = dynamic_cast<FileCommand*>(command);
     jassert(fc);
@@ -51,15 +55,22 @@ void ApplicationCommands::endFileSaveInteraction(Array<File> filenames)
 void ApplicationCommands::endConfirmationInteraction(bool result)
 {
     Command* command = ongoingInteractions.removeAndReturn(ongoingInteractions.size() - 1);
-    reinterpret_cast<ConfirmedCommand*>(command)->perform();
+    if(result)
+        reinterpret_cast<ConfirmedCommand*>(command)->perform();
+    else
+        Logger::writeToLog("canceled confirmation");
 }
 
 
 void ApplicationCommands::handleOpenProjectRequest()
 {
     auto project = model->getProject();
+    std::function<void()> func = [this]() {
+        startFileOpenInteraction(new ApplicationCommands::OpenProjectCommand(model),
+                                 "Open Augene project", "*.augene|*.*", "Select an augene project file", 0);
+    };
     if (project->hasUnsavedChanges()) {
-        queuedCommands.add(new OpenProjectCommand(model));
+        queuedTasks.add(func);
         std::unique_ptr<Command> p{new SaveProjectCommand(model)};
         startConfirmationInteraction(new ApplicationCommands::TriggerSaveProjectCommand(model, std::move(p)),
                 "Unsaved changes",
@@ -67,8 +78,7 @@ void ApplicationCommands::handleOpenProjectRequest()
                                   project->edit->filename));
     }
     else
-        startFileOpenInteraction(new ApplicationCommands::OpenProjectCommand(model),
-                "Open Augene project", "*.augene|*.*", "Select an augene project file", 0);
+        func();
 
 }
 
@@ -83,19 +93,23 @@ void ApplicationCommands::handleSaveProjectRequest()
 }
 
 void ApplicationCommands::OpenProjectCommand::perform(Array<File>& files) {
+    auto& queuedCommands = model->getApplicationCommands()->queuedTasks;
+    auto nextFunc = queuedCommands.size() > 0 ? queuedCommands.removeAndReturn(0) : []{};
     if (files.size() == 0 || files[0].getFileName() == "")
         return;
     model->getApplicationCommands()->openProject(files[0].getFullPathName());
-    // FIXME: dequeue and process next command.
+    nextFunc();
 }
 
 void ApplicationCommands::SaveProjectCommand::perform(Array<File> &files) {
+    auto& queuedCommands = model->getApplicationCommands()->queuedTasks;
+    auto nextFunc = queuedCommands.size() > 0 ? queuedCommands.removeAndReturn(0) : []{};
     if (files.size() == 0 || files[0].getFileName() == "")
         return;
     auto project = model->getProject();
     project->edit->filename = files[0].getFullPathName();
     project->save();
-    // FIXME: dequeue and process next command.
+    nextFunc();
 }
 
 void ApplicationCommands::TriggerSaveProjectCommand::perform()

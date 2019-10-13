@@ -98,7 +98,7 @@ public:
 
 private:
     AugeneModel* model;
-    OwnedArray<Command> queuedCommands;
+    Array<std::function<void()>> queuedTasks;
     OwnedArray<Command> ongoingInteractions;
     Array<DialogRequestListener*> listeners;
 

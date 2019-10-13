@@ -24,14 +24,17 @@ public:
 
     void loadFile(String filename) {
         // FIXME: implement
+        Logger::writeToLog("Not Implemented: loadFile()");
     }
 
     bool hasUnsavedChanges() {
         // FIXME: implement
+        Logger::writeToLog("Not Implemented: hasUnsavedChanges()");
         return true;
     }
 
     void save() {
+        Logger::writeToLog("Not Implemented: save()");
         jassert(edit->filename != "");
         // FIXME: implement
     }
