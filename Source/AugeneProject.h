@@ -22,16 +22,17 @@ public:
 
     std::unique_ptr<Edit> edit;
 
-    void loadFile(String string) {
+    void loadFile(String filename) {
         // FIXME: implement
     }
 
     bool hasUnsavedChanges() {
         // FIXME: implement
-        return false;
+        return true;
     }
 
     void save() {
+        jassert(edit->filename != "");
         // FIXME: implement
     }
 

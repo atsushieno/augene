@@ -22,8 +22,7 @@ public:
         PopupMenu menu;
         if (menuName == "File") {
             menu.addItem("Open Augene project", [this]{
-                // FIXME: remove this CommandID hack
-                commands->requestGenericOpenFileDialog(1, "Open Augene project", "*.augene|*.*", "Select an augene project file", 0);
+                commands->handleOpenProjectRequest();
             });
             menu.addItem("Quit", [this]{ JUCEApplication::getInstance()->quit(); });
         }

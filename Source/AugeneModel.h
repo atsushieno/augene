@@ -10,6 +10,7 @@ class AugeneModel
 public:
     AugeneModel()
     {
+        project.reset(new AugeneProject());
         applicationCommands.reset(new ApplicationCommands(this));
         mainMenu.reset(new MainMenuModel(applicationCommands.get()));
     }
@@ -30,26 +31,22 @@ public:
 
     ApplicationCommands* getApplicationCommands() { return applicationCommands.get(); }
 
-    void loadProject(AugeneProject *project) {
-        if (project != nullptr)
-            unloadProject();
-        this->project = project;
+    void loadProject(std::unique_ptr<AugeneProject> project) {
+        this->project = std::move(project);
         for (auto l : listeners)
-            l->onProjectLoaded(project);
+            l->onProjectLoaded(project.get());
     }
 
+    // anything required (e.g. saving existing project) must be handled beforehand.
     void unloadProject()
     {
-        if (project->hasUnsavedChanges())
-            // FIXME: remove this CommandID hack
-            applicationCommands->requestGenericYesNoDialog(2, "Unsaved changes",
-                    String::formatted("Project '%s' has unsaved changes. Would you like to save it?", project->edit->filename));
+        project.reset(new AugeneProject());
     }
 
-    AugeneProject* getProject() { return project; }
+    AugeneProject* getProject() { return project.get(); }
 
 private:
-    AugeneProject* project;
+    std::unique_ptr<AugeneProject> project;
     std::unique_ptr<MainMenuModel> mainMenu;
     std::unique_ptr<ApplicationCommands> applicationCommands;
 

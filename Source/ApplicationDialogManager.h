@@ -9,31 +9,27 @@
 class ApplicationDialogManager : public ApplicationCommands::DialogRequestListener
 {
 public:
-    ApplicationDialogManager(AugeneModel* model)
-    {}
+    ApplicationDialogManager(AugeneModel* model) : model(model) {}
 
-    void openFileRequested(CommandID id, String dialogTitle, String fileExtensions, String description, int flags) override
+    void openFileRequested(ApplicationCommands::Command* command, String dialogTitle, String fileExtensions, String description, int flags) override
     {
-        if (id == 1) { // FIXME: remove this hack
-            FileChooser fileChooser{dialogTitle, File(), fileExtensions};
-            if (fileChooser.showDialog(flags, nullptr))
-                model->getApplicationCommands()->openProject(fileChooser.getResult().getFullPathName());
-        }
+        FileChooser fileChooser{dialogTitle, File(), fileExtensions};
+        fileChooser.showDialog(FileBrowserComponent::saveMode, nullptr);
+        model->getApplicationCommands()->endFileOpenInteraction(fileChooser.getResults());
     }
 
-    void saveFileRequested(CommandID id, String dialogTitle, String fileExtensions, String description, int flags) override
+    void saveFileRequested(ApplicationCommands::Command* command, String dialogTitle, String fileExtensions, String description, int flags) override
     {
-
+        FileChooser fileChooser{dialogTitle, File(), fileExtensions};
+        fileChooser.showDialog(FileBrowserComponent::saveMode, nullptr);
+        model->getApplicationCommands()->endFileSaveInteraction(fileChooser.getResults());
     }
 
-    void yesNoDialogRequested(CommandID commandID, String dialogTitle, String message) override
+    void confirmationRequested(ApplicationCommands::Command* command, String dialogTitle, String message) override
     {
-        if (commandID == 2) { // FIXME: remove this hack
-            if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::QuestionIcon, dialogTitle, message))
-                model->getApplicationCommands()->saveProject();
-        }
+        model->getApplicationCommands()->endConfirmationInteraction(
+            AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::QuestionIcon, dialogTitle, message));
     }
-
 
 private:
     AugeneModel* model;
