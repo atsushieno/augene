@@ -22,4 +22,4 @@ mv tmpout augene-player.jucer
 # sed -e "$SETCMDNTB" Source/Main.cpp > tmpout || exit 1
 # mv tmpout Source/Main.cpp
 $PROJUCER_EXE --resave augene-player.jucer
-make -C $PBD/Builds/LinuxMakefile
+make -C Builds/LinuxMakefile
