@@ -40,6 +40,7 @@ To compose your own music, create new audiograph and new MML for each list, whic
 
 There are two repositories for this "augene" application. This repository only contains "augene-player" part of the entire system, which is a JUCE based C++ application. It is a typical JUCE application project so you can build it with the following steps:
 
+- go to juce-modules and run `rewrite.sh` (TODO: Windows not supported yet, you can run the script on WSL though.)
 - launch Projucer (in JUCE), open `augene-player.jucer`, and save projects.
 - Build the project for your platform. Project files are under `Build/*` e.g. `Build/LinuxMakefile`.
 
@@ -88,4 +89,13 @@ One thing to note is that we cannot control track number so the Id at AugeneTrac
 augene-player is released under the GPLv3 license.
 
 ntractive is released under the MIT license.
+
+
+## Dependencies
+
+There are couple of dependencies in this application:
+
+- [JUCE](https://juce.com/) - GPLv3 (or commercial).
+- [tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - ditto.
+- [simplefilewatcher](https://github.com/apetrone/simplefilewatcher/) - MIT.
 

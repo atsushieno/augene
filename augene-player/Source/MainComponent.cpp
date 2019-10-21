@@ -21,27 +21,11 @@ void showAudioDeviceSettings (tracktion_engine::Engine& engine)
     o.launchAsync();
 }
 
-void togglePlay (tracktion_engine::Edit& edit)
-{
-    auto& transport = edit.getTransport();
-
-    if (transport.isPlaying())
-        transport.stop (false, false);
-    else
-        transport.play (false);
-}
-
 MainComponent::MainComponent()
 {
     setSize (600, 400);
 
     editFilePath = JUCEApplication::getCommandLineParameters().replace ("-NSDocumentRevisionsDebugMode YES", "").unquoted().trim();
-
-    const File editFile (editFilePath);
-    if (editFile.existsAsFile())
-    {
-        loadEditFile();
-    }
 
     selectFileButton.onClick = [this] {
         FileChooser fc{"Open tracktionedit File", File{}, "*.tracktionedit"};
@@ -82,6 +66,12 @@ MainComponent::MainComponent()
     addAndMakeVisible(&settingsButton);
     addAndMakeVisible(&playPauseButton);
     addAndMakeVisible(&editNameLabel);
+
+    fileWatcher.addListener(this);
+
+    const File editFile (editFilePath);
+    if (editFile.existsAsFile())
+        loadEditFile();
 }
 
 MainComponent::~MainComponent()

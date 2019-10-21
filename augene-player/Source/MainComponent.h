@@ -3,7 +3,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class MainComponent   : public Component, public ChangeListener
+class MainComponent
+    : public Component, public ChangeListener, public AugeneFileWatcher::Listener
 {
 public:
     //==============================================================================
@@ -14,11 +15,36 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    void togglePlay (tracktion_engine::Edit& edit)
+    {
+        auto& transport = edit.getTransport();
+
+        if (transport.isPlaying())
+            transport.stop (false, false);
+        else
+            transport.play (false);
+    }
+
+    void fileUpdated(String fullPath)
+    {
+        if(edit == nullptr)
+            return;
+        auto& transport = edit->getTransport();
+        bool wasPlaying = transport.isPlaying();
+        if(wasPlaying)
+            togglePlay(*edit.get()); // note that this "edit" is another instance than below
+        unloadEditFile();
+        loadEditFile();
+        if (wasPlaying)
+            togglePlay(*edit.get()); // note that this "edit" is another instance than above.
+    }
+
 private:
     //==============================================================================
     tracktion_engine::Engine engine { ProjectInfo::projectName };
     std::unique_ptr<tracktion_engine::Edit> edit;
     String editFilePath;
+    AugeneFileWatcher fileWatcher;
 
     TextButton selectFileButton { "Open File" }, pluginsButton { "Plugins" }, settingsButton { "Settings" }, playPauseButton { "Play" };
     Label editNameLabel { "No Edit Loaded" };
@@ -35,15 +61,23 @@ private:
         updatePlayButtonText();
     }
 
+    void unloadEditFile()
+    {
+        auto& transport = edit->getTransport();
+        if (transport.isPlaying())
+            transport.stop (true, false);
+        fileWatcher.stopWatchingFile(editFilePath);
+    }
+
     void loadEditFile()
     {
         File editFile{editFilePath};
         auto itemId = tracktion_engine::ProjectItemID::createNewID(1);
         edit = std::make_unique<tracktion_engine::Edit> (engine, tracktion_engine::loadEditFromFile (editFile, itemId), tracktion_engine::Edit::forEditing, nullptr, 0);
         auto& transport = edit->getTransport();
-        transport.setLoopRange ({ 0.0, edit->getLength() });
-        transport.looping = true;
         transport.addChangeListener (this);
+
+        fileWatcher.startWatchingFile(editFilePath);
 
         editNameLabel.setText (editFile.getFileNameWithoutExtension(), dontSendNotification);
     }

@@ -32,6 +32,7 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <XCODE_IPHONE targetFolder="Builds/iOS">
@@ -56,6 +57,7 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <VS2019 targetFolder="Builds/VisualStudio2019">
@@ -80,6 +82,7 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -104,6 +107,7 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
@@ -128,6 +132,7 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
     <CLION targetFolder="Builds/CLion">
@@ -148,10 +153,12 @@
         <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
+        <MODULEPATH id="augene_file_watcher" path="../juce-modules"/>
       </MODULEPATHS>
     </CLION>
   </EXPORTFORMATS>
   <MODULES>
+    <MODULE id="augene_file_watcher" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
