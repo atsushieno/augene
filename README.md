@@ -1,7 +1,7 @@
 
 # augene: MML compiler for generic sequencer engine
 
-augene is a compound music authoring toolchain that brings old-fashion MML (music macro language) compiler integrated into modern sequencer that is also used in DAWs.
+augene is an experimental compound music authoring toolchain that brings old-fashion MML (music macro language) compiler integrated into modern sequencer that is also used in DAWs. It is nothing but a proof of concept. There isn't even a room for improvement - it is just living in a wild.
 
 It uses the following software and libraries behind:
 
@@ -11,7 +11,7 @@ It uses the following software and libraries behind:
 - [tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - music playback engine.
 - [Xwt](https://github.com/mono/xwt/) cross-platform widget toolkit.
 
-The most difficult part for anyone but me is learn how to use MML and compiler
+The most difficult part for anyone but me is learn how to use MML and compiler.
 
 # Usage
 
@@ -65,6 +65,9 @@ An augene project is a simple set of XML described in a project file which looks
 
 ```
 <AugeneProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <MasterPlugins>
+    <MasterPlugin>MasterPlugin1.filtergraph</MasterPlugin>
+  </MasterPlugins>
   <Tracks>
     <AugeneTrack>
       <Id>1</Id>
@@ -80,7 +83,21 @@ An augene project is a simple set of XML described in a project file which looks
 </AugeneProject>
 ```
 
-We would give more details in the future but the contents are not very complicated.
+Here is a list of elements:
+
+| Element | feature |
+|-|-|
+| AugeneProject | the root element |
+| MasterPlugins | holds a list of master plugins |
+| MasterPlugin | specifies an AudioGraph file that is used as a master plugin |
+| Tracks | holds a list of tracks |
+| AugeneTrack | a track definition specifier which holds an Id and an AudioGraph file (so far only one plugin is specified. Rooms for improvements. |
+| MmlFiles | holds a list of MML files |
+| MmlFile | specifies an MML source file to be compiled and converted to the edit file. |
+| MmlStrings | holds a list of MML strings |
+| MmlString | specifies an MML string to be compiled and converted to the edit file. |
+
+All tracks in either MML format (file or string) are converted into tracktionedit. Then for each defined track by `Tracks` elements, audio graph is interpreted and converted to `PLUGIN` element in tracktionedit and then attached to the track whose Id is identical.
 
 One thing to note is that we cannot control track number so the Id at AugeneTrack is mapped only in the order in the output SMF from MML. While mugene supports track number in double (floating point number) SMF does not have "track numbers" and numbers are counted only by sequential index (0, 1, 2...),  the mappings could be totally different.
 
