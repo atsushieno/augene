@@ -3,6 +3,8 @@
 
 augene is an experimental compound music authoring toolchain that brings old-fashion MML (music macro language) compiler integrated into modern sequencer that is also used in DAWs. It is nothing but a proof of concept. There isn't even a room for improvement - it is just living in a wild.
 
+You can also have a quick glance at the project by [my slides for lightening talk at ADC 2019](https://speakerdeck.com/atsushieno/create-music-in-199x-language-for-2019-sequencer)
+
 It uses the following software and libraries behind:
 
 - The project model in a sample in [ntracktive](https://github.com/atsushieno/ntracktive) - defines a "project" which contains a set of MML sources and associated audio plugin filter graphs, converts SMF to audio plugin based songs (.tracktionedit)
