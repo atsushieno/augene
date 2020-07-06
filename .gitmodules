@@ -7,3 +7,6 @@
 [submodule "external/simplefilewatcher"]
 	path = external/simplefilewatcher
 	url = https://github.com/apetrone/simplefilewatcher/
+[submodule "external/ntractive"]
+	path = external/ntractive
+	url = https://github.com/atsushieno/ntractive.git

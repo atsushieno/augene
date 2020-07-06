@@ -13,11 +13,15 @@ It uses the following software and libraries behind:
 - [tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - music playback engine.
 - [Xwt](https://github.com/mono/xwt/) cross-platform widget toolkit.
 
-The most difficult part for anyone but me is learn how to use MML and compiler.
+The most difficult part for anyone but me is to learn how to use MML and compiler.
+
+
 
 # Usage
 
-launch`Augene.exe` application. It is a cross-platform .NET desktop GUI application (actually not in this repository).
+NOTE: before using augene, you most likely have to build things (explained in the next section).
+
+launch `Augene.exe` application. It is a cross-platform .NET desktop GUI application (actually not in this repository).
 
 ![augene.exe sshot](https://photos.app.goo.gl/6vDaZrKecVtbeZEb6)
 
@@ -50,14 +54,17 @@ For Linux environment there is a shorthand script `build.sh` which would be usef
 
 (It was planned to be a console tool at first, but ended up to be a GUI app because we need audio and plugin configuration settings.)
 
-## Augene.exe
-
-Another one is .NET/Xwt based GUI app/tool in [ntractive](https://github.com/atsushieno/ntracktive) repository. Use nuget restore and msbuild, or simply open `ntractive.sln` with Rider, MonoDevelop, Visual Studio (for Mac / for Win) etc.
-
-
-## Disabling VST2
+### Disabling VST2
 
 If you don't have VST2 SDK and would like to remove support for VST2, open augene.jucer (and probably AudioPluginHost.jucer if you once tried to build it from build.sh) on Projucer and select `juce_audio_processors` module and disable VST(2) there, then save project.
+
+## Augene.exe
+
+Another one is .NET/Xwt based GUI app/tool in [ntractive](https://github.com/atsushieno/ntracktive) repository.
+
+Build `Augene.exe` with `external/ntracktive` submodule, by: `dotnet run --project external/ntracktive/samples/Augene`. Ok, it prints stacktraces even on successful run (`System.IO.DirectoryNotFoundException`) but you can skip that.
+
+You need .NET Core SDK 3.1 locally installed.
 
 
 
