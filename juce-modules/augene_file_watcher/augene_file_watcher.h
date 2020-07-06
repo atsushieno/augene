@@ -33,8 +33,23 @@ public:
         virtual void fileUpdated(String fullPath) = 0;
     };
 
-    AugeneFileWatcher() {}
+    class FileWatcherTimer : public juce::HighResolutionTimer
+    {
+    public:
+        FileWatcherTimer(FW::FileWatcher* watcher) : watcher(watcher) {}
+
+        void hiResTimerCallback() override { watcher->update(); }
+
+    private:
+        FW::FileWatcher* watcher;
+    };
+
+    AugeneFileWatcher() {
+        timer.reset(new FileWatcherTimer(&watcher));
+        timer->startTimer(1000);
+    }
     ~AugeneFileWatcher() {
+        timer->stopTimer();
         watcher.update();
     }
 
@@ -76,6 +91,7 @@ private:
     FW::FileWatcher watcher{};
     Array<String> targets{};
     Array<Listener*> listeners{};
+    std::unique_ptr<FileWatcherTimer> timer;
 
     bool toggleWatch(String fullPath, bool startWatch)
     {

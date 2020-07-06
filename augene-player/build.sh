@@ -1,7 +1,11 @@
-#/bin/sh
+#/bin/bash
 
+if [ '$(PROJUCER)' == '' ] ; then
 PROJUCER=../external/tracktion_engine/modules/juce/extras/Projucer
+fi
+if [ '$(PROJUCER_EXE)' == '' ] ; then
 PROJUCER_EXE=$PROJUCER/Builds/LinuxMakefile/build/Projucer
+fi
 SEDCMDVST="s/JUCE_PLUGINHOST_LADSPA/JUCE_PLUGINHOST_VST='1' JUCE_PLUGINHOST_LADSPA/"
 # workaround for https://github.com/WeAreROLI/JUCE/issues/602
 SETCMDNTB="s/setUsingNativeTitleBar/\/\/setUsingNativeTitleBar/"

@@ -29,14 +29,16 @@ public:
     {
         if(edit == nullptr)
             return;
-        auto& transport = edit->getTransport();
-        bool wasPlaying = transport.isPlaying();
-        if(wasPlaying)
-            togglePlay(*edit.get()); // note that this "edit" is another instance than below
-        unloadEditFile();
-        loadEditFile();
-        if (wasPlaying)
-            togglePlay(*edit.get()); // note that this "edit" is another instance than above.
+        MessageManager::callAsync([this](){
+            auto& transport = edit->getTransport();
+            bool wasPlaying = transport.isPlaying();
+            if(wasPlaying)
+                togglePlay(*edit.get()); // note that this "edit" is another instance than below
+            unloadEditFile();
+            loadEditFile();
+            if (wasPlaying)
+                togglePlay(*edit.get()); // note that this "edit" is another instance than above.
+        });
     }
 
 private:
@@ -73,7 +75,7 @@ private:
     {
         File editFile{editFilePath};
         auto itemId = tracktion_engine::ProjectItemID::createNewID(1);
-        edit = std::make_unique<tracktion_engine::Edit> (engine, tracktion_engine::loadEditFromFile (editFile, itemId), tracktion_engine::Edit::forEditing, nullptr, 0);
+        edit = std::make_unique<tracktion_engine::Edit> (engine, tracktion_engine::loadEditFromFile (engine, editFile, itemId), tracktion_engine::Edit::forEditing, nullptr, 0);
         auto& transport = edit->getTransport();
         transport.addChangeListener (this);
 

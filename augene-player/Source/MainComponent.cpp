@@ -27,6 +27,7 @@ MainComponent::MainComponent()
 
     editFilePath = JUCEApplication::getCommandLineParameters().replace ("-NSDocumentRevisionsDebugMode YES", "").unquoted().trim();
 
+    #if !JUCE_ANDROID
     selectFileButton.onClick = [this] {
         FileChooser fc{"Open tracktionedit File", File{}, "*.tracktionedit"};
         if (fc.browseForFileToOpen()) {
@@ -34,6 +35,7 @@ MainComponent::MainComponent()
             loadEditFile();
         }
     };
+    #endif
 
     playPauseButton.onClick = [this] { togglePlay (*edit); };
 
