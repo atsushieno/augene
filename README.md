@@ -62,10 +62,14 @@ If you don't have VST2 SDK and would like to remove support for VST2, open augen
 
 Another one is .NET/Xwt based GUI app/tool in [ntractive](https://github.com/atsushieno/ntracktive) repository.
 
-Build `Augene.exe` with `external/ntracktive` submodule, by: `dotnet run --project external/ntracktive/samples/Augene`. Ok, it prints stacktraces even on successful run (`System.IO.DirectoryNotFoundException`) but you can skip that.
+Build `Augene.exe` with `external/ntracktive` submodule, by:
 
-You need .NET Core SDK 3.1 locally installed.
+```
+nuget restore external/ntractive/ntracktive.sln 
+msbuild external/ntractive/ntracktive.sln
+```
 
+You need Mono locally installed. .NET Core does not work there, because Xwt does not support .NET Core.
 
 
 ## Augene project data format
