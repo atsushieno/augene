@@ -1,9 +1,9 @@
 #/bin/bash
 
-if [ '$(PROJUCER)' == '' ] ; then
+if [ '$PROJUCER'=='' ] ; then
 PROJUCER=../external/tracktion_engine/modules/juce/extras/Projucer
 fi
-if [ '$(PROJUCER_EXE)' == '' ] ; then
+if [ '$PROJUCER_EXE'=='' ] ; then
 PROJUCER_EXE=$PROJUCER/Builds/LinuxMakefile/build/Projucer
 fi
 SEDCMDVST="s/JUCE_PLUGINHOST_LADSPA/JUCE_PLUGINHOST_VST='1' JUCE_PLUGINHOST_LADSPA/"
@@ -12,7 +12,7 @@ SETCMDNTB="s/setUsingNativeTitleBar/\/\/setUsingNativeTitleBar/"
 
 APH=../external/tracktion_engine/modules/juce/extras/AudioPluginHost
 
-git submodule update --init --recursive
+#git submodule update --init --recursive
 
 make -C $PROJUCER/Builds/LinuxMakefile
 
