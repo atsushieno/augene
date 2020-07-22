@@ -4,9 +4,9 @@
 [submodule "external/vst3sdk"]
 	path = external/vst3sdk
 	url = https://github.com/steinbergmedia/vst3sdk.git
-[submodule "external/simplefilewatcher"]
-	path = external/simplefilewatcher
-	url = https://github.com/apetrone/simplefilewatcher/
 [submodule "external/ntractive"]
 	path = external/ntractive
 	url = https://github.com/atsushieno/ntractive.git
+[submodule "external/efsw"]
+	path = external/efsw
+	url = https://github.com/SpartanJ/efsw.git

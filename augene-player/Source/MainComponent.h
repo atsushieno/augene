@@ -2,9 +2,10 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "efsw/efsw.hpp"
 
 class MainComponent
-    : public Component, public ChangeListener, public AugeneFileWatcher::Listener
+    : public Component, public ChangeListener
 {
 public:
     //==============================================================================
@@ -29,11 +30,19 @@ public:
     {
         if(edit == nullptr)
             return;
-        MessageManager::callAsync([this](){
+        // The filewatcher implementation is weird.
+        // It keeps sending the event until undefined-ish time has passed.
+        // To avoid such a mess, we just disable the entire watcher and recreate ones every time.
+        // It's stupid, but not in a critical performance issue.
+        fileWatcher->removeWatch(watchID);
+
+        MessageManager::callAsync([&](){
             auto& transport = edit->getTransport();
             bool wasPlaying = transport.isPlaying();
             if(wasPlaying)
                 togglePlay(*edit.get()); // note that this "edit" is another instance than below
+            augeneWatchListener.reset(nullptr);
+            fileWatcher.reset(nullptr);
             unloadEditFile();
             loadEditFile();
             if (wasPlaying)
@@ -42,11 +51,31 @@ public:
     }
 
 private:
+    class AugeneWatchListener : public efsw::FileWatchListener {
+        MainComponent* owner;
+    public:
+        AugeneWatchListener(MainComponent* owner) : owner(owner) {}
+
+        void handleFileAction(efsw::WatchID watchid, const std::string& dir, const std::string& filename, efsw::Action action, std::string oldFilename = "" ) override {
+            File file{owner->editFilePath};
+            if (file.getFileName() != filename.c_str())
+                return;
+            String dirJ = String{dir};
+            String filenameJ = String{filename};
+            String fullPath = File{dirJ}.getChildFile(filenameJ).getFullPathName();
+            if (action == efsw::Actions::Modified || action == efsw::Actions::Delete)
+                owner->fileUpdated(fullPath);
+        }
+    };
+
     //==============================================================================
     tracktion_engine::Engine engine { ProjectInfo::projectName };
     std::unique_ptr<tracktion_engine::Edit> edit;
     String editFilePath;
-    AugeneFileWatcher fileWatcher;
+    std::unique_ptr<efsw::FileWatcher> fileWatcher;
+    std::unique_ptr<AugeneWatchListener> augeneWatchListener;
+    efsw::WatchID watchID;
+    int32_t projectItemIDSource{0};
 
     TextButton selectFileButton { "Open File" }, pluginsButton { "Plugins" }, settingsButton { "Settings" }, playPauseButton { "Play" };
     Label editNameLabel { "No Edit Loaded" };
@@ -68,18 +97,25 @@ private:
         auto& transport = edit->getTransport();
         if (transport.isPlaying())
             transport.stop (true, false);
-        fileWatcher.stopWatchingFile(editFilePath);
+        edit.reset(nullptr);
+        File editFile{editFilePath};
     }
 
     void loadEditFile()
     {
         File editFile{editFilePath};
-        auto itemId = tracktion_engine::ProjectItemID::createNewID(1);
+        auto itemId = tracktion_engine::ProjectItemID::createNewID(++projectItemIDSource);
         edit = std::make_unique<tracktion_engine::Edit> (engine, tracktion_engine::loadEditFromFile (engine, editFile, itemId), tracktion_engine::Edit::forEditing, nullptr, 0);
         auto& transport = edit->getTransport();
         transport.addChangeListener (this);
 
-        fileWatcher.startWatchingFile(editFilePath);
+        if (!augeneWatchListener.get()) {
+            fileWatcher = std::make_unique<efsw::FileWatcher>();
+            fileWatcher->watch();
+            augeneWatchListener = std::make_unique<AugeneWatchListener>(this);
+            watchID = fileWatcher->addWatch(editFile.getParentDirectory().getFullPathName().toStdString(),
+                                            augeneWatchListener.get());
+        }
 
         editNameLabel.setText (editFile.getFileNameWithoutExtension(), dontSendNotification);
     }

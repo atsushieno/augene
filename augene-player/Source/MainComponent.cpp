@@ -69,8 +69,6 @@ MainComponent::MainComponent()
     addAndMakeVisible(&playPauseButton);
     addAndMakeVisible(&editNameLabel);
 
-    fileWatcher.addListener(this);
-
     const File editFile (editFilePath);
     if (editFile.existsAsFile())
         loadEditFile();
@@ -78,6 +76,8 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
+    if (edit->getTransport().isPlaying())
+        edit->getTransport().stop(true, true);
     engine.getTemporaryFileManager().getTempDirectory().deleteRecursively();
 }
 
