@@ -12,6 +12,21 @@ add_subdirectory(juce-symlink)
 juce_add_gui_app(augene-player
 	PRODUCT_NAME "augene-player")
 
+target_compile_definitions(augene-player PRIVATE
+    JUCE_ALSA=1
+    JUCE_DIRECTSOUND=1
+    JUCE_PLUGINHOST_LADSPA=0
+    JUCE_PLUGINHOST_VST=0
+    JUCE_PLUGINHOST_VST3=1
+    JUCE_USE_CAMERA=0
+    JUCE_USE_CDBURNER=0
+    JUCE_USE_CDREADER=0
+    JUCE_USE_CURL=0
+    JUCE_USE_FLAC=1
+    JUCE_USE_OGGVORBIS=1
+    JUCE_WASAPI=1
+    JUCE_WEB_BROWSER=0)
+
 juce_add_module(../external/tracktion_engine/modules/tracktion_engine)
 
 target_include_directories(augene-player PRIVATE
@@ -56,12 +71,6 @@ target_sources(augene-player PRIVATE
 ../external/efsw/src/efsw/String.cpp
 	Source/Main.cpp
 	Source/MainComponent.cpp)
-
-target_compile_definitions(augene-player PRIVATE
-    JUCE_WEB_BROWSER=0
-    JUCE_USE_CURL=0
-    JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:augene-player,JUCE_PRODUCT_NAME>"
-    JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:augene-player,JUCE_VERSION>")
 
 target_link_libraries(augene-player PRIVATE
 	juce::juce_gui_extra
