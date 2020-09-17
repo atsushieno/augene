@@ -15,8 +15,9 @@ void showAudioDeviceSettings (tracktion_engine::Engine& engine)
     DialogWindow::LaunchOptions o;
     o.dialogTitle = TRANS("Audio Settings");
     o.dialogBackgroundColour = LookAndFeel::getDefaultLookAndFeel().findColour (ResizableWindow::backgroundColourId);
+    engine.getDeviceManager().initialise(0, 2);
     o.content.setOwned (new AudioDeviceSelectorComponent (engine.getDeviceManager().deviceManager,
-                                                          0, 512, 1, 512, false, false, true, true));
+                                                          0, 2, 1, 2, false, false, true, true));
     o.content->setSize (400, 600);
     o.launchAsync();
 }
