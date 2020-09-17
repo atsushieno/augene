@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="dikiQC" name="augene-player" projectType="guiapp" companyName="atsushieno"
               bundleIdentifier="name.atsushieno.augeneplayer" cppLanguageStandard="17"
-              jucerFormatVersion="1">
+              jucerFormatVersion="1" displaySplashScreen="0">
   <MAINGROUP id="s4kMcw" name="augene-player">
     <GROUP id="{58F11006-CE5E-8567-0509-4CDE81C75439}" name="Source">
       <GROUP id="{794F4E1B-523C-62D2-81AC-64C71936E21D}" name="efsw">
@@ -240,26 +240,6 @@
         <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
-    <CLION targetFolder="Builds/CLion" clionXcodeEnabled="0" clionMakefileEnabled="1">
-      <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../../home/atsushi/SDKs/JUCE/modules"/>
-        <MODULEPATH id="tracktion_engine" path="../external/tracktion_engine/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../external/tracktion_engine/modules/juce/modules"/>
-        <MODULEPATH id="juce_dsp" path="../external/tracktion_engine/modules/juce/modules"/>
-        <MODULEPATH id="juce_osc" path="../external/tracktion_engine/modules/juce/modules"/>
-      </MODULEPATHS>
-    </CLION>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -284,5 +264,5 @@
     <OSX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_PLUGINHOST_VST3="1" JUCE_PLUGINHOST_AU="1"
-               JUCE_PLUGINHOST_VST="1" JUCE_PLUGINHOST_LADSPA="1"/>
+               JUCE_PLUGINHOST_LADSPA="1"/>
 </JUCERPROJECT>
