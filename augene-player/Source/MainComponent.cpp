@@ -26,6 +26,8 @@ MainComponent::MainComponent()
 {
     setSize (600, 400);
 
+    engine.getDeviceManager().deviceManager.initialise(0, 2, nullptr, true);
+
     editFilePath = JUCEApplication::getCommandLineParameters().replace ("-NSDocumentRevisionsDebugMode YES", "").unquoted().trim();
 
     #if !JUCE_ANDROID
