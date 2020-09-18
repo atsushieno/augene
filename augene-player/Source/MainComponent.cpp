@@ -38,7 +38,17 @@ MainComponent::MainComponent()
     };
     #endif
 
-    playPauseButton.onClick = [this] { togglePlay (*edit); };
+    playPauseButton.onClick = [this] {
+        if (edit)
+            togglePlay (*edit);
+    };
+    stopButton.onClick = [this] {
+        if (!edit)
+            return;
+        auto & t = edit->getTransport();
+        t.stop(false, false);
+        t.setCurrentPosition(0);
+    };
 
     // Show the plugin scan dialog
     // If you're loading an Edit with plugins in, you'll need to perform a scan first
@@ -68,6 +78,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(&pluginsButton);
     addAndMakeVisible(&settingsButton);
     addAndMakeVisible(&playPauseButton);
+    addAndMakeVisible(&stopButton);
     addAndMakeVisible(&editNameLabel);
 
     const File editFile (editFilePath);
@@ -77,8 +88,10 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
-    if (edit->getTransport().isPlaying())
-        edit->getTransport().stop(true, true);
+    if (edit) {
+        if (edit->getTransport().isPlaying())
+            edit->getTransport().stop(true, true);
+    }
     engine.getTemporaryFileManager().getTempDirectory().deleteRecursively();
 }
 
@@ -92,9 +105,11 @@ void MainComponent::resized()
 {
     auto r = getLocalBounds();
     auto topR = r.removeFromTop (30);
+    auto nextR = r.removeFromTop (30);
     selectFileButton.setBounds (topR.removeFromLeft (topR.getWidth() / 3).reduced (2));
-    pluginsButton.setBounds (topR.removeFromLeft (topR.getWidth() / 3).reduced (2));
-    settingsButton.setBounds (topR.removeFromLeft (topR.getWidth() / 2).reduced (2));
-    playPauseButton.setBounds (topR.reduced (2));
+    pluginsButton.setBounds (topR.removeFromLeft (topR.getWidth() / 2).reduced (2));
+    settingsButton.setBounds (topR.reduced (2));
+    playPauseButton.setBounds (nextR.removeFromLeft (nextR.getWidth() / 2).reduced (2));
+    stopButton.setBounds (nextR.reduced (2));
     editNameLabel.setBounds (r);
 }

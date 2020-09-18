@@ -39,8 +39,9 @@ public:
         MessageManager::callAsync([&](){
             auto& transport = edit->getTransport();
             bool wasPlaying = transport.isPlaying();
-            if(wasPlaying)
-                togglePlay(*edit.get()); // note that this "edit" is another instance than below
+            if (wasPlaying)
+                togglePlay(*edit.get());
+            transport.stop(true, true);
             augeneWatchListener.reset(nullptr);
             fileWatcher.reset(nullptr);
             unloadEditFile();
@@ -77,7 +78,7 @@ private:
     efsw::WatchID watchID;
     int32_t projectItemIDSource{0};
 
-    TextButton selectFileButton { "Open File" }, pluginsButton { "Plugins" }, settingsButton { "Settings" }, playPauseButton { "Play" };
+    TextButton selectFileButton { "Open File" }, pluginsButton { "Plugins" }, settingsButton { "Settings" }, playPauseButton { "Play" }, stopButton { "Stop" };
     Label editNameLabel { "No Edit Loaded" };
 
     //==============================================================================
