@@ -101,6 +101,10 @@ Here is a list of elements:
 | Element | feature |
 |-|-|
 | AugeneProject | the root element |
+| Includes | container of `Include` elements. |
+| Include | include other project files. They can also be a bank list of AudioGraph. |
+| AudioGraphs | container of `AudioGraph` elements. |
+| AudioGraph | gives a filtergraph a name so that it can be referenced by `AudioGraph` element within `AugeneTrack` element. |
 | MasterPlugins | holds a list of master plugins |
 | MasterPlugin | specifies an AudioGraph file that is used as a master plugin |
 | Tracks | holds a list of tracks |
@@ -127,5 +131,5 @@ There are couple of dependencies in this application:
 
 - [JUCE](https://juce.com/) - GPLv3 (or commercial).
 - [tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - ditto.
-- [simplefilewatcher](https://github.com/apetrone/simplefilewatcher/) - MIT.
+- [efsw](https://github.com/SpartanJ/efsw) - MIT.
 
