@@ -21,9 +21,10 @@ public:
         auto& transport = edit.getTransport();
 
         if (transport.isPlaying())
-            transport.stop (false, false);
-        else
-            transport.play (false);
+            transport.stop(false, false);
+        else {
+            transport.play(false);
+        }
     }
 
     void fileUpdated(String fullPath)

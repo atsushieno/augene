@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="dikiQC" name="augene-player" projectType="guiapp" companyName="atsushieno"
+<JUCERPROJECT id="dikiQC" name="AugenePlayer" projectType="guiapp" companyName="atsushieno"
               bundleIdentifier="name.atsushieno.augeneplayer" cppLanguageStandard="17"
               jucerFormatVersion="1" displaySplashScreen="0">
-  <MAINGROUP id="s4kMcw" name="augene-player">
+  <MAINGROUP id="s4kMcw" name="AugenePlayer">
     <GROUP id="{58F11006-CE5E-8567-0509-4CDE81C75439}" name="Source">
       <GROUP id="{794F4E1B-523C-62D2-81AC-64C71936E21D}" name="efsw">
         <GROUP id="{8BD99E9E-3D7E-F052-BCA7-B94E1FA355E4}" name="platform">
@@ -264,5 +264,5 @@
     <OSX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_PLUGINHOST_VST3="1" JUCE_PLUGINHOST_AU="1"
-               JUCE_PLUGINHOST_LADSPA="1"/>
+               JUCE_PLUGINHOST_VST='1' JUCE_PLUGINHOST_LADSPA="1"/>
 </JUCERPROJECT>

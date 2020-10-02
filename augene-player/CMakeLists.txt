@@ -9,10 +9,10 @@ pkg_check_modules(GTK3 gtk+-x11-3.0)
 
 add_subdirectory(juce-symlink)
 
-juce_add_gui_app(augene-player
-	PRODUCT_NAME "augene-player")
+juce_add_gui_app(AugenePlayer
+	PRODUCT_NAME "AugenePlayer")
 
-target_compile_definitions(augene-player PRIVATE
+target_compile_definitions(AugenePlayer PRIVATE
     JUCE_ALSA=1
     JUCE_DIRECTSOUND=1
     JUCE_PLUGINHOST_LADSPA=0
@@ -29,13 +29,13 @@ target_compile_definitions(augene-player PRIVATE
 
 juce_add_module(../external/tracktion_engine/modules/tracktion_engine)
 
-target_include_directories(augene-player PRIVATE
+target_include_directories(AugenePlayer PRIVATE
 	${GTK3_INCLUDEDIR}
 	../external/tracktion_engine/modules/
 	../external/efsw/include/
 	../external/efsw/src/)
 
-target_sources(augene-player PRIVATE
+target_sources(AugenePlayer PRIVATE
 ../external/efsw/src/efsw/platform/posix/SystemImpl.cpp
 ../external/efsw/src/efsw/platform/posix/ThreadImpl.cpp
 ../external/efsw/src/efsw/platform/posix/FileSystemImpl.cpp
@@ -72,7 +72,7 @@ target_sources(augene-player PRIVATE
 	Source/Main.cpp
 	Source/MainComponent.cpp)
 
-target_link_libraries(augene-player PRIVATE
+target_link_libraries(AugenePlayer PRIVATE
 	juce::juce_gui_extra
 	tracktion_engine)
 

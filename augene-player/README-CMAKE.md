@@ -1,6 +1,6 @@
 # Building with CMake
 
-It is now the supported way to build augene-player. It is complicated a little bit though.
+It is now the supported way to build AugenePlayer. It is complicated a little bit though.
 
 First, you have to add a symlink from ../external/tracktion_engine/modules/juce to `juce-symlink` which is referenced in `CMakeLists.txt`.
 

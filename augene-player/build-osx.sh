@@ -14,5 +14,5 @@ mv tmpout $APH/AudioPluginHost.jucer
 $PROJUCER_EXE --resave $APH/AudioPluginHost.jucer
 pushd $APH/Builds/MacOSX && xcodebuild && popd
 
-# $PROJUCER_EXE --resave augene-player.jucer
+# $PROJUCER_EXE --resave AugenePlayer.jucer
 cd Builds/MacOSX && xcodebuild && cd ../..

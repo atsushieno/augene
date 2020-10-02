@@ -21,9 +21,9 @@ mv tmpout $APH/AudioPluginHost.jucer
 $PROJUCER_EXE --resave $APH/AudioPluginHost.jucer
 make -C $APH/Builds/LinuxMakefile
 
-sed -e "$SEDCMDVST" augene-player.jucer > tmpout || exit 1
-mv tmpout augene-player.jucer
+sed -e "$SEDCMDVST" AugenePlayer.jucer > tmpout || exit 1
+mv tmpout AugenePlayer.jucer
 # sed -e "$SETCMDNTB" Source/Main.cpp > tmpout || exit 1
 # mv tmpout Source/Main.cpp
-$PROJUCER_EXE --resave augene-player.jucer
+$PROJUCER_EXE --resave AugenePlayer.jucer
 make -C Builds/LinuxMakefile
