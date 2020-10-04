@@ -7,6 +7,9 @@
 */
 
 #include "MainComponent.h"
+#if ANDROID
+#include "../../../../modules/juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
+#endif
 
 //==============================================================================
 
@@ -52,6 +55,11 @@ MainComponent::MainComponent()
         t.setCurrentPosition(0);
     };
 
+#if ANDROID
+    auto &formatManager = engine.getPluginManager().pluginFormatManager;
+    aap::getPluginHostPAL()->setPluginListCache(aap::getPluginHostPAL()->getInstalledPlugins());
+    formatManager.addFormat (new juceaap::AndroidAudioPluginFormat());
+#endif
     // Show the plugin scan dialog
     // If you're loading an Edit with plugins in, you'll need to perform a scan first
     pluginsButton.onClick = [this]
