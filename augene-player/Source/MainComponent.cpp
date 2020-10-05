@@ -69,7 +69,11 @@ MainComponent::MainComponent()
         o.dialogTitle                   = TRANS("Plugins");
         o.dialogBackgroundColour        = Colours::black;
         o.escapeKeyTriggersCloseButton  = true;
+#if ANDROID
+        o.useNativeTitleBar             = false; // explicitly needed
+#else
         o.useNativeTitleBar             = true;
+#endif
         o.resizable                     = true;
         o.useBottomRightCornerResizer   = true;
 
@@ -79,7 +83,11 @@ MainComponent::MainComponent()
                                           tracktion_engine::getApplicationSettings());
         v->setSize (800, 600);
         o.content.setOwned (v);
+#if ANDROID
+        o.launchAsync()->setTopLeftPosition(0, 100); // we want title bar to show close button.
+#else
         o.launchAsync();
+#endif
     };
 
     settingsButton.onClick  = [this] { showAudioDeviceSettings (engine); };
