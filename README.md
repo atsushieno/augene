@@ -21,7 +21,7 @@ The most difficult part for anyone but me is to learn how to use MML and compile
 
 NOTE: before using augene, you most likely have to build things (explained in the next section).
 
-launch `Augene.exe` application. It is a cross-platform .NET desktop GUI application (actually not in this repository).
+launch `Augene.exe` application. It is a cross-platform .NET desktop GUI application (actually not in this repository; it's `ntractive` submodule).
 
 ![augene.exe sshot](https://photos.app.goo.gl/6vDaZrKecVtbeZEb6)
 
@@ -71,16 +71,27 @@ msbuild external/ntractive/ntracktive.sln
 
 You need Mono locally installed. .NET Core does not work there, because Xwt does not support .NET Core.
 
+## Android support
 
-## Augene project data format
+AugenePlayer is being supported on Android (most likely ongoing work). It is done via [aap-juce](https://github.com/atsushieno/aap-juce/) project. Audio plugins must be indicated as AAP (there is no VST 2/3 or other plugin formats that can run on Android).
+
+# Augene project data format
 
 An augene project is a simple set of XML described in a project file which looks like this:
 
 ```
 <AugeneProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Includes>
+    <Include Bank="1" Source="Banks/SfzBanks.augene" />
+    <Include Bank="2" Source="Banks/SF2Banks.augene" />
+    <Include Bank="3" Source="Banks/SurgeBanks.augene" />
+  </Includes>
   <MasterPlugins>
     <MasterPlugin>MasterPlugin1.filtergraph</MasterPlugin>
   </MasterPlugins>
+  <AudioGraphs>
+    <AudioGraph Id="GrandPiano1" Source="sfizz_city_piano_1.filtergraph" />
+  </AudioGraphs>
   <Tracks>
     <AugeneTrack>
       <Id>1</Id>
@@ -102,7 +113,7 @@ Here is a list of elements:
 |-|-|
 | AugeneProject | the root element |
 | Includes | container of `Include` elements. |
-| Include | include other project files. They can also be a bank list of AudioGraph. |
+| Include | include other project files. They can also be a bank list of AudioGraph. See description below. |
 | AudioGraphs | container of `AudioGraph` elements. |
 | AudioGraph | gives a filtergraph a name so that it can be referenced by `AudioGraph` element within `AugeneTrack` element. |
 | MasterPlugins | holds a list of master plugins |
@@ -114,9 +125,19 @@ Here is a list of elements:
 | MmlStrings | holds a list of MML strings |
 | MmlString | specifies an MML string to be compiled and converted to the edit file. |
 
-All tracks in either MML format (file or string) are converted into tracktionedit. Then for each defined track by `Tracks` elements, audio graph is interpreted and converted to `PLUGIN` element in tracktionedit and then attached to the track whose Id is identical.
+An Augene project can include other Augene project files using `Include` element. It is useful to represent a bank of preset filtergraphs. On an `Include` element, `Bank` and `BankMsb` attributes indicate bank select MSB, `BankLsb` attribute indicates bank select LSB (`Bank` is equivalent to `BankMsb` here). `Source` attribute indicates the *included* file path, relative to the *including* file path.
 
-One thing to note is that we cannot control track number so the Id at AugeneTrack is mapped only in the order in the output SMF from MML. While mugene supports track number in double (floating point number) SMF does not have "track numbers" and numbers are counted only by sequential index (0, 1, 2...),  the mappings could be totally different.
+An `AudioGraph` can be referenced by its `Id` attribute, by (1) mugene MIDI track with `INSTRUMENTNAME` meta event, or (2) `AudioGraph` attribute on `AugeneTrack` elements.
+
+All tracks in either MML format (file or string) are converted into tracktionedit. Then audio graphs in the project are interpreted and converted to `PLUGIN` element in tracktionedit and then for each defined track by `Tracks` elements, if there is any graph whose `Id` is identical to the track's `AudioGraph` then the audio graph is attached to the track.
+
+One thing to note is that while mugene supports track number in double (floating point number) SMF does not have "track numbers" and numbers are counted only by sequential index (0, 1, 2...),  the mappings could be totally different. It is always to indicate audio graph by INSTRUMENTNAME meta event in mugene MML, or supplementally use `AugeneTrack`'s mappings.
+
+
+# Authoring Tips
+
+If you are Tracktion Waveform user, you would like to examine the output `*.tracktionedit` file with Waveform. To do so, you will have to manually create a tracktion project (it is a binary file that Augene.exe does not support generation) and let it point to the edit file. To make it happen, you will most likely have to name your `*.augene` project file as `(projectname) Edit 1.augene`, or rename your edit in the track directly to match your project file.
+
 
 # License
 
