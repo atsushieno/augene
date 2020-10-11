@@ -9,20 +9,36 @@
 #include "MainComponent.h"
 #if ANDROID
 #include "../../../../modules/juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
+#include "aap/android-context.h"
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 #endif
+
+namespace juce {
+    extern JNIEnv *getEnv() noexcept;
+}
 
 //==============================================================================
 
 void showAudioDeviceSettings (tracktion_engine::Engine& engine)
 {
     DialogWindow::LaunchOptions o;
+#if ANDROID
+    o.useNativeTitleBar             = false; // explicitly needed
+#else
+    o.useNativeTitleBar             = true;
+#endif
     o.dialogTitle = TRANS("Audio Settings");
     o.dialogBackgroundColour = LookAndFeel::getDefaultLookAndFeel().findColour (ResizableWindow::backgroundColourId);
     engine.getDeviceManager().initialise(0, 2);
     o.content.setOwned (new AudioDeviceSelectorComponent (engine.getDeviceManager().deviceManager,
                                                           0, 2, 1, 2, false, false, true, true));
     o.content->setSize (400, 600);
+#if ANDROID
+    o.launchAsync()->setTopLeftPosition(0, 100); // we want title bar to show close button.
+#else
     o.launchAsync();
+#endif
 }
 
 MainComponent::MainComponent()
@@ -33,15 +49,35 @@ MainComponent::MainComponent()
 
     editFilePath = JUCEApplication::getCommandLineParameters().replace ("-NSDocumentRevisionsDebugMode YES", "").unquoted().trim();
 
-    #if !JUCE_ANDROID
     selectFileButton.onClick = [this] {
+#if ANDROID
+        ApplicationProperties applicationProperties;
+        PropertiesFile::Options options{};
+        options.applicationName = String{"AugenePlayer"};
+        applicationProperties.setStorageParameters(options);
+        auto &editFile = applicationProperties.getUserSettings()->getFile();
+        if (editFile.getFullPathName().isEmpty() || !editFile.existsAsFile()) {
+            auto amgr = aap::get_android_asset_manager(juce::getEnv());
+            auto asset = AAssetManager_open(amgr, "AugeneDemo.tracktionedit", AASSET_MODE_BUFFER);
+            auto len = AAsset_getLength(asset);
+            {
+                void *buf = calloc(len, 1);
+                AAsset_read(asset, buf, len);
+                auto out = FileOutputStream{editFile};
+                out.write(buf, len);
+                free(buf);
+            }
+        }
+        editFilePath = editFile.getFullPathName();
+        loadEditFile();
+#else
         FileChooser fc{"Open tracktionedit File", File{}, "*.tracktionedit"};
         if (fc.browseForFileToOpen()) {
             editFilePath = fc.getResult().getFullPathName();
             loadEditFile();
         }
+#endif
     };
-    #endif
 
     playPauseButton.onClick = [this] {
         if (edit)
