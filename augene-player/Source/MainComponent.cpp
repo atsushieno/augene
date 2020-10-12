@@ -55,8 +55,11 @@ MainComponent::MainComponent()
         PropertiesFile::Options options{};
         options.applicationName = String{"AugenePlayer"};
         applicationProperties.setStorageParameters(options);
-        auto &editFile = applicationProperties.getUserSettings()->getFile();
-        if (editFile.getFullPathName().isEmpty() || !editFile.existsAsFile()) {
+        auto settingsDir = applicationProperties.getUserSettings()->getFile().getParentDirectory().getParentDirectory();
+        auto editFile = settingsDir.getChildFile("AugeneDemo.tracktionedit");
+        if (true/*editFile.getFullPathName().isEmpty() || !editFile.existsAsFile()*/) { // always overwrite
+            if (editFile.existsAsFile())
+                editFile.deleteFile();
             auto amgr = aap::get_android_asset_manager(juce::getEnv());
             auto asset = AAssetManager_open(amgr, "AugeneDemo.tracktionedit", AASSET_MODE_BUFFER);
             auto len = AAsset_getLength(asset);
