@@ -68,6 +68,10 @@ public:
 #if !JUCE_LINUX
             setUsingNativeTitleBar (true);
 #endif
+#if ANDROID
+            if (!RuntimePermissions::isGranted(RuntimePermissions::recordAudio))
+                RuntimePermissions::request(RuntimePermissions::recordAudio, {});
+#endif
             setContentOwned (new MainComponent(), true);
 
            #if JUCE_IOS || JUCE_ANDROID
