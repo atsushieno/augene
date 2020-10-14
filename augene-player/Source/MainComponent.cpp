@@ -9,6 +9,7 @@
 #include "MainComponent.h"
 #if ANDROID
 #include "../../../../modules/juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
+#include "../external/jlv2/modules/jlv2_host/jlv2_host.h"
 #endif
 
 //==============================================================================
@@ -55,12 +56,13 @@ MainComponent::MainComponent()
         t.setCurrentPosition(0);
     };
 
+    auto &formatManager = engine.getPluginManager().pluginFormatManager;
 #if ANDROID
     aap::getPluginHostPAL()->setPluginListCache(aap::getPluginHostPAL()->getInstalledPlugins());
-    auto &formatManager = engine.getPluginManager().pluginFormatManager;
     auto format = new juceaap::AndroidAudioPluginFormat();
     formatManager.addFormat (format);
 #endif
+    formatManager.addFormat (new jlv2::LV2PluginFormat());
     // Show the plugin scan dialog
     // If you're loading an Edit with plugins in, you'll need to perform a scan first
     pluginsButton.onClick = [this]

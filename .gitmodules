@@ -10,3 +10,6 @@
 [submodule "external/efsw"]
 	path = external/efsw
 	url = https://github.com/SpartanJ/efsw.git
+[submodule "external/jlv2"]
+	path = external/jlv2
+	url = https://github.com/lvtk/jlv2.git
