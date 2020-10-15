@@ -46,17 +46,17 @@ To compose your own music, create new audiograph and new MML for each list, whic
 
 There are two repositories for this "augene" application. This repository only contains "augene-player" part of the entire system, which is a JUCE based C++ application. It is a typical JUCE application project so you can build it with the following steps:
 
-- go to juce-modules and run `rewrite.sh` (TODO: Windows not supported yet, you can run the script on WSL though.)
-- launch Projucer (in JUCE), open `augene-player.jucer`, and save projects.
+- Build Projucer if you don't have it yet (follow JUCE documentation)
+- launch Projucer, open `AugenePlayer.jucer`, and save projects, or run `Projucer --resave AugenePlayer.jucer`.
 - Build the project for your platform. Project files are under `Build/*` e.g. `Build/LinuxMakefile`.
 
-For Linux environment there is a shorthand script `build.sh` which would be useful for other platforms (changes are needed e.g. use `Projucer.app/Content/MacOS/Projucer`).
+For Linux environment there is a shorthand script `build.sh` and for Mac environment there is `build-osx.sh` (not actively maintained, so it might need some fixes from time to time). Since LV2 integration via [lvtk/jlv2](https://github.com/lvtk/jlv2) is enabled, you'll need LV2 packages installed on MacOS too.
 
-(It was planned to be a console tool at first, but ended up to be a GUI app because we need audio and plugin configuration settings.)
+It was planned to be a console tool at first, but ended up to be a GUI app because we need audio and plugin configuration settings.
 
-### Disabling VST2
+### Enabling VST2
 
-If you don't have VST2 SDK and would like to remove support for VST2, open augene.jucer (and probably AudioPluginHost.jucer if you once tried to build it from build.sh) on Projucer and select `juce_audio_processors` module and disable VST(2) there, then save project.
+If you have VST2 SDK and would like to add support for VST2, open AugenePlayer.jucer in Projucer (and probably AudioPluginHost.jucer if you once tried to build it from build.sh) on Projucer and select `juce_audio_processors` module and enable VST(2) there, then save project.
 
 ## Augene.exe
 
@@ -151,6 +151,6 @@ ntractive is released under the MIT license.
 There are couple of dependencies in this application:
 
 - [JUCE](https://juce.com/) - GPLv3 (or commercial).
-- [tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - ditto.
-- [efsw](https://github.com/SpartanJ/efsw) - MIT.
-
+- [Tracktion/tracktion_engine](https://github.com/Tracktion/tracktion_engine/) - ditto.
+- [lvtk/jlv2](https://github.com/lvtk/jlv2) - ditto (in jlv2_host).
+- [SpartanJ/efsw](https://github.com/SpartanJ/efsw) - MIT.
