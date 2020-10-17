@@ -101,8 +101,9 @@ MainComponent::MainComponent()
     aap::getPluginHostPAL()->setPluginListCache(aap::getPluginHostPAL()->getInstalledPlugins());
     auto format = new juceaap::AndroidAudioPluginFormat();
     formatManager.addFormat (format);
-#endif
+#else
     formatManager.addFormat (new jlv2::LV2PluginFormat());
+#endif
     // Show the plugin scan dialog
     // If you're loading an Edit with plugins in, you'll need to perform a scan first
     pluginsButton.onClick = [this]
