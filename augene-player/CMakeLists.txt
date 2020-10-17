@@ -6,6 +6,10 @@ project(AUGENE_PLAYER VERSION 0.1.0)
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(GTK3 gtk+-x11-3.0)
+if(NOT ANDROID)
+pkg_check_modules(LILV lilv-0)
+pkg_check_modules(SUIL suil-0)
+endif()
 
 add_subdirectory(juce-symlink)
 
@@ -28,9 +32,17 @@ target_compile_definitions(AugenePlayer PRIVATE
     JUCE_WEB_BROWSER=0)
 
 juce_add_module(../external/tracktion_engine/modules/tracktion_engine)
+if(NOT ANDROID)
+juce_add_module(../external/jlv2/modules/jlv2_host)
+target_include_directories(AugenePlayer PRIVATE
+	${LILV_INCLUDE_DIRS}
+	${SUIL_INCLUDE_DIRS}
+	)
+endif()
 
 target_include_directories(AugenePlayer PRIVATE
 	${GTK3_INCLUDEDIR}
+        ../external/jlv2/modules
 	../external/tracktion_engine/modules/
 	../external/efsw/include/
 	../external/efsw/src/)
@@ -74,5 +86,12 @@ target_sources(AugenePlayer PRIVATE
 
 target_link_libraries(AugenePlayer PRIVATE
 	juce::juce_gui_extra
-	tracktion_engine)
+	tracktion_engine
+	jlv2_host)
 
+if(NOT ANDROID)
+target_link_libraries(AugenePlayer PRIVATE
+	${LILV_LIBRARIES}
+	${SUIL_LIBRARIES}
+	)
+endif()
