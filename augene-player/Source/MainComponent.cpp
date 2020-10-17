@@ -7,7 +7,6 @@
 */
 
 #include "MainComponent.h"
-#include "jlv2_host/jlv2_host.h"
 #if ANDROID
 #include "../../../../modules/juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
 #include "aap/android-context.h"
@@ -17,6 +16,8 @@
 namespace juce {
     extern JNIEnv *getEnv() noexcept;
 }
+#else
+#include "jlv2_host/jlv2_host.h"
 #endif
 
 //==============================================================================
