@@ -119,6 +119,12 @@ private:
                                             augeneWatchListener.get());
         }
 
+        for (auto track : edit->getTrackList()) {
+            if (!track->isAudioTrack())
+                continue;
+            dynamic_cast<tracktion_engine::AudioTrack*>(track)->freezeTrackAsync();
+        }
+
         editNameLabel.setText (editFile.getFileNameWithoutExtension(), dontSendNotification);
     }
 
