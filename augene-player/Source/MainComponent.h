@@ -119,13 +119,23 @@ private:
                                             augeneWatchListener.get());
         }
 
+        editNameLabel.setText (editFile.getFileNameWithoutExtension(), dontSendNotification);
+
+        /*
         for (auto track : edit->getTrackList()) {
             if (!track->isAudioTrack())
                 continue;
             dynamic_cast<tracktion_engine::AudioTrack*>(track)->freezeTrackAsync();
         }
 
-        editNameLabel.setText (editFile.getFileNameWithoutExtension(), dontSendNotification);
+        for (auto track : edit->getTrackList()) {
+            while (true) {
+                Thread::sleep(50);
+                if (track->isFrozen(tracktion_engine::Track::FreezeType::anyFreeze))
+                    break;
+            }
+        }
+        */
     }
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
