@@ -8,7 +8,7 @@
 
 #include "MainComponent.h"
 #if ANDROID
-#include "../../../../modules/juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
+#include "juceaap_audio_plugin_processors/juce_android_audio_plugin_format.h"
 #include "aap/android-context.h"
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
